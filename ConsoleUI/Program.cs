@@ -1,6 +1,7 @@
 ﻿using Business.Concrate;
 using DataAccess.Concrate.EntityFramework;
 using DataAccess.Concrate.InMemory;
+using Entities.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -9,9 +10,33 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
+            CarManager carManager = new CarManager(new EfCarDal());
+            Car car = new Car() { CarId = 1006, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araba yeni" };
+            //CarTest();
             //BrandTest();
             //ColorTest();
+
+            //addTheCar(carManager);
+            //updateTheCar(carManager, car);
+            //deleteTheCar(carManager, car);
+            Console.ReadLine();
+        }
+
+        private static void updateTheCar(CarManager carManager, Car car)
+        {
+            carManager.Update(car);
+            Console.WriteLine("updated");
+        }
+
+        private static void deleteTheCar(CarManager carManager, Car car)
+        {
+            carManager.Delete(car);
+        }
+
+        private static void addTheCar(CarManager carManager)
+        {
+            carManager.Add(new Car() {BrandId = 1, ColorId = 1, DailyPrice = 111111, ModelYear = 2000, Description = "araba" });
+            Console.WriteLine("Car Added");
         }
 
         private static void ColorTest()
@@ -40,7 +65,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.BrandName+ " " +   car.Description + ", renk: " + car.ColorName);
             }
-            Console.ReadLine();
         }
 
 
