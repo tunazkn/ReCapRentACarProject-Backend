@@ -10,6 +10,5 @@ namespace DataAccess.Concrate.EntityFramework
 {
     public class EfColorDal : EfEntityRepositoryBase<Color, RentACarContext>, IColorDal
     { 
-
     }
 }

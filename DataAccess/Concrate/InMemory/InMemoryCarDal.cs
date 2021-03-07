@@ -38,6 +38,7 @@ namespace DataAccess.Concrate.InMemory
         }
         public void Update(Car car)
         {
+
             Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == car.CarId);
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;

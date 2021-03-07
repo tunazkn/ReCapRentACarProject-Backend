@@ -11,7 +11,7 @@ namespace DataAccess.Concrate.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Integrated Security=True ile Trusted_Connection=true aynı şeylerdir.  
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=RentACar;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=RentACar;Trusted_Connection=true") ;
         }
 
         public DbSet<Car> Cars { get; set; }
