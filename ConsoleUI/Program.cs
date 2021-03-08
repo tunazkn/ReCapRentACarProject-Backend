@@ -13,6 +13,9 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            UserManager userManager = new UserManager(new EfUserDal());
             //Car car = new Car() { CarId = 16, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araba" };
 
             //Get Car Details Test
@@ -22,6 +25,9 @@ namespace ConsoleUI
             //GetAllCarTest(carManager);
             //GetAllBrandTest(brandManager);
             //GetAllColorTest(colorManager);
+            //getAllCustomerTest(customerManager);
+            //getAllRentalTest(rentalManager);
+            //getAllUserTest(userManager);
 
             //AddCarTest(carManager);
             //UpdateCarTest(carManager);
@@ -46,10 +52,141 @@ namespace ConsoleUI
             //UpdateColorTest(colorManager);
             //DeleteColorTest(colorManager);
 
+            //Add, Update, Delete for Customer Tests
+            //AddCustomerTest(customerManager);
+            //UpdateCustomerTest(customerManager);
+            //DeleteCustomerTest(customerManager);
+
+            //Add, Update, Delete for Rental Tests
+            //AddRentalTest(rentalManager);
+            //UpdateRentalTest(rentalManager);
+            //DeleteRentalTest(rentalManager);
+
+            //Add, Update, Delete for User Tests
+            //AddUserTest(userManager);
+            //UpdateUserTest(userManager);
+            //DeleteUserTest(userManager);
+            
+
+            //denemeler
+
 
             Console.ReadLine();
         }
 
+        private static void DeleteUserTest(UserManager UserManager)
+        {
+            UserManager.Delete(new User() { Id = 1 });
+            Console.WriteLine("----- User Deleted... -----");
+        }
+
+        private static void UpdateUserTest(UserManager UserManager)
+        {
+            DateTime date = DateTime.Now;
+            UserManager.Update(new User() { Id = 2, FirstName = "Durmuş", 
+                LastName = "Yıldız", Email = "durmus@yildiz.com", Password = "54321" });
+            Console.WriteLine("----- User Updated... -----");
+        }
+        private static void AddUserTest(UserManager UserManager)
+        {
+            DateTime date = DateTime.Now;
+            UserManager.Add(new User() { Id = 2, FirstName = "Duran", 
+                LastName = "Yıldız", Email = "duran@yildiz.com", Password = "12345" });
+            Console.WriteLine("----- User Added... -----");
+        }
+        private static void DeleteRentalTest(RentalManager rentalManager)
+        {
+            rentalManager.Delete(new Rental() { Id = 1 });
+            Console.WriteLine("----- Rental Deleted... -----");
+        }
+
+        private static void UpdateRentalTest(RentalManager rentalManager)
+        {
+            DateTime date = DateTime.Now;
+            rentalManager.Update(new Rental() { Id = 2, CarId = 4, CustomerId = 2, RentDate = date.AddHours(1) });
+            Console.WriteLine("----- Rental Updated... -----");
+        }
+
+        private static void AddRentalTest(RentalManager rentalManager)
+        {
+            DateTime date = DateTime.Now;
+            rentalManager.Add(new Rental() { Id = 2, CarId = 4, CustomerId = 2, RentDate = date });
+            Console.WriteLine("----- Rental Added... -----");
+        }
+        private static void DeleteCustomerTest(CustomerManager customerManager)
+        {
+            customerManager.Delete(new Customer() { Id = 1 });
+            Console.WriteLine("----- Customer Deleted... -----");
+        }
+
+        private static void UpdateCustomerTest(CustomerManager customerManager)
+        {
+            customerManager.Update(new Customer() { Id = 2, UserId = 2, CompanyName = "örnek şirket" });
+            Console.WriteLine("----- Customer Updated... -----");
+        }
+
+        private static void AddCustomerTest(CustomerManager customerManager)
+        {
+            customerManager.Add(new Customer() { Id = 2, UserId = 2, CompanyName = "şirket" });
+            Console.WriteLine("----- Customer Added... -----");
+        }
+
+        private static void getAllUserTest(UserManager userManager)
+        {
+            var result = userManager.GetAllUser();
+            if (result.Success)
+            {
+                separator();
+                Console.WriteLine("User List:");
+                foreach (var user in result.Data)
+                {
+                    Console.WriteLine("User first name: " + user.FirstName + ", " + "User last name: "
+                        + user.LastName + "User email: " + user.Email + "User password: " + user.Password);
+                    Console.WriteLine("-----Get All User Tested... -----");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void getAllRentalTest(RentalManager rentalManager)
+        {
+            var result = rentalManager.GetAllRental();
+            if (result.Success)
+            {
+                separator();
+                Console.WriteLine("Rental List:");
+                foreach (var rental in result.Data)
+                {
+                    Console.WriteLine("Car id: " + rental.CarId + ", " + "Customer id: " + rental.CustomerId
+                        + "Rent date: " + rental.RentDate + "Return date: " + rental.ReturnDate);
+                    Console.WriteLine("-----Get All Rental Tested... -----");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void getAllCustomerTest(CustomerManager customerManager)
+        {
+            var result = customerManager.GetAllCustomer();
+            if (result.Success)
+            {
+                separator();
+                Console.WriteLine("Customer List:");
+                foreach (var customer in result.Data)
+                {
+                    Console.WriteLine("User id: " + customer.UserId + " , " + customer.CompanyName);
+                    Console.WriteLine("-----Get All Customer Tested... -----");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
 
         private static void GetCarsByColorIdTest(CarManager carManager)
         {
@@ -263,10 +400,10 @@ namespace ConsoleUI
 
         /*8. gün
          *  Ödev 1
-6) Sisteme yeni araba eklendiğinde aşağıdaki kuralları çalıştırınız.
-Araba ismi minimum 2 karakter olmalıdır
-Araba günlük fiyatı 0'dan büyük olmalıdır.
-Ödevinize ait github linkini paylaşınız.
+    6) Sisteme yeni araba eklendiğinde aşağıdaki kuralları çalıştırınız.
+    Araba ismi minimum 2 karakter olmalıdır
+    Araba günlük fiyatı 0'dan büyük olmalıdır.
+    Ödevinize ait github linkini paylaşınız.
          */
     }
 }
