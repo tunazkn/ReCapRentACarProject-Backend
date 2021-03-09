@@ -3,6 +3,7 @@ using DataAccess.Concrate.EntityFramework;
 using DataAccess.Concrate.InMemory;
 using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -20,15 +21,21 @@ namespace ConsoleUI
 
             //Get Car Details Test
             GetCarDetailsTest(carManager);
+            
+            //Get Customer Details test
+            //GetCustomerDetailsTest(customerManager);
+
+            //Get Rental Details test
+            //GetRentalDetailsTest(rentalManager);
 
             //Get All Tests
             //GetAllCarTest(carManager);
             //GetAllBrandTest(brandManager);
             //GetAllColorTest(colorManager);
-            //getAllCustomerTest(customerManager);
-            //getAllRentalTest(rentalManager);
-            //getAllUserTest(userManager);
-
+            //GetAllCustomerTest(customerManager);
+            //GetAllRentalTest(rentalManager);
+            //GetAllUserTest(userManager);
+            
             //AddCarTest(carManager);
             //UpdateCarTest(carManager);
             //DeleteCarTest(carManager);
@@ -41,7 +48,7 @@ namespace ConsoleUI
             //Get Cars By Color Id And Brand Id Tests
             //GetCarsByBrandIdTest(carManager);
             //GetCarsByColorIdTest(carManager);
-
+            
             //Add, Update, Delete for Brand Tests
             //AddBrandTest(brandManager);
             //UpdateBrandTest(brandManager);
@@ -66,11 +73,10 @@ namespace ConsoleUI
             //AddUserTest(userManager);
             //UpdateUserTest(userManager);
             //DeleteUserTest(userManager);
-            
+
 
             //denemeler
-
-
+            
             Console.ReadLine();
         }
 
@@ -83,15 +89,27 @@ namespace ConsoleUI
         private static void UpdateUserTest(UserManager UserManager)
         {
             DateTime date = DateTime.Now;
-            UserManager.Update(new User() { Id = 2, FirstName = "Durmuş", 
-                LastName = "Yıldız", Email = "durmus@yildiz.com", Password = "54321" });
+            UserManager.Update(new User()
+            {
+                Id = 2,
+                FirstName = "Durmuş",
+                LastName = "Yıldız",
+                Email = "durmus@yildiz.com",
+                Password = "54321"
+            });
             Console.WriteLine("----- User Updated... -----");
         }
         private static void AddUserTest(UserManager UserManager)
         {
             DateTime date = DateTime.Now;
-            UserManager.Add(new User() { Id = 2, FirstName = "Duran", 
-                LastName = "Yıldız", Email = "duran@yildiz.com", Password = "12345" });
+            UserManager.Add(new User()
+            {
+                Id = 2,
+                FirstName = "Duran",
+                LastName = "Yıldız",
+                Email = "duran@yildiz.com",
+                Password = "12345"
+            });
             Console.WriteLine("----- User Added... -----");
         }
         private static void DeleteRentalTest(RentalManager rentalManager)
@@ -131,17 +149,17 @@ namespace ConsoleUI
             Console.WriteLine("----- Customer Added... -----");
         }
 
-        private static void getAllUserTest(UserManager userManager)
+        private static void GetAllUserTest(UserManager userManager)
         {
             var result = userManager.GetAllUser();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("User List:");
                 foreach (var user in result.Data)
                 {
-                    Console.WriteLine("User first name: " + user.FirstName + ", " + "User last name: "
-                        + user.LastName + "User email: " + user.Email + "User password: " + user.Password);
+                    Console.WriteLine("User first name: " + user.FirstName + ", User last name: "
+                        + user.LastName + ", User email: " + user.Email + ", User password: " + user.Password);
                     Console.WriteLine("-----Get All User Tested... -----");
                 }
             }
@@ -150,17 +168,18 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
-        private static void getAllRentalTest(RentalManager rentalManager)
+        private static void GetAllRentalTest(RentalManager rentalManager)
         {
             var result = rentalManager.GetAllRental();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Rental List:");
                 foreach (var rental in result.Data)
                 {
-                    Console.WriteLine("Car id: " + rental.CarId + ", " + "Customer id: " + rental.CustomerId
-                        + "Rent date: " + rental.RentDate + "Return date: " + rental.ReturnDate);
+
+                    Console.WriteLine("Car id: " + rental.CarId + ", " + ", Customer id: " + rental.CustomerId
+                        + ", Rent date: " + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate));
                     Console.WriteLine("-----Get All Rental Tested... -----");
                 }
             }
@@ -169,13 +188,24 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
-        private static void getAllCustomerTest(CustomerManager customerManager)
+        private static string ReturnDateFix(DateTime? ReturnDate)
+        {
+            string dateToReturn;
+
+            if (ReturnDate == null)
+                dateToReturn = "Teslim Edilmedi.";
+            else
+                dateToReturn = ReturnDate.ToString();
+            return dateToReturn;
+        }
+
+        private static void GetAllCustomerTest(CustomerManager customerManager)
         {
             var result = customerManager.GetAllCustomer();
             if (result.Success)
             {
-                separator();
-                Console.WriteLine("Customer List:");
+                Separator();
+                Console.WriteLine("Customer List: ");
                 foreach (var customer in result.Data)
                 {
                     Console.WriteLine("User id: " + customer.UserId + " , " + customer.CompanyName);
@@ -193,7 +223,7 @@ namespace ConsoleUI
             var result = carManager.GetCarsByColorId(9);
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Cars By Color Id List:");
                 foreach (var car in result.Data)
                 {
@@ -214,7 +244,7 @@ namespace ConsoleUI
             var result = carManager.GetCarsByBrandId(8);
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Cars By Brand Id List:");
                 foreach (var car in result.Data)
                 {
@@ -268,7 +298,7 @@ namespace ConsoleUI
 
         private static void GetColorByIdTest(ColorManager colorManager, int id)
         {
-            separator();
+            Separator();
             Console.WriteLine("Color By Id List:");
             var result = colorManager.GetColorById(id);
             Console.WriteLine("Color id: " + result.Data.ColorId + "\n" + "Color name: " + result.Data.ColorName);
@@ -277,7 +307,7 @@ namespace ConsoleUI
 
         private static void GetBrandByIdTest(BrandManager brandManager, int id)
         {
-            separator();
+            Separator();
             Console.WriteLine("Brand By Id List:");
             var result = brandManager.GetBrandById(id);
             Console.WriteLine("Brand id: " + result.Data.BrandId + "\n" + "Brand name: " + result.Data.BrandName);
@@ -289,7 +319,7 @@ namespace ConsoleUI
             var result = carManager.GetCarById(id);
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Car By Id List:");
                 Console.WriteLine("Car id: " + result.Data.CarId + "\n" + "Car brand id: " + result.Data.BrandId + "\n"
                     + "Car color id: " + result.Data.ColorId + "\n" + "Car model year: " + result.Data.ModelYear + "\n"
@@ -325,7 +355,7 @@ namespace ConsoleUI
             var result = carManager.GetAllCar();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Car List:");
                 foreach (var car in result.Data)
                 {
@@ -344,7 +374,7 @@ namespace ConsoleUI
             var result = brandManager.GetAllBrand();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Brand List:");
                 foreach (var brand in result.Data)
                 {
@@ -359,7 +389,7 @@ namespace ConsoleUI
             var result = colorManager.GetAllColor();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Color List:");
                 foreach (var color in result.Data)
                 {
@@ -378,7 +408,7 @@ namespace ConsoleUI
             var result = carManager.GetCarDetails();
             if (result.Success)
             {
-                separator();
+                Separator();
                 Console.WriteLine("Car Details List:");
                 foreach (var car in result.Data)
                 {
@@ -392,8 +422,51 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        private static void GetCustomerDetailsTest(CustomerManager customerManager)
+        {
+            var result = customerManager.GetCustomerDetails();
+            if (result.Success)
+            {
+                Separator();
+                Console.WriteLine("Customer Details List:");
+                foreach (var customer in result.Data)
+                {
+                    Console.WriteLine("firs name: " + customer.FirstName + ", Last name: " + customer.LastName
+                        + ", Email: " + customer.Email + ", Password: " + customer.Password
+                        + ", CompanyName: " + customer.CompanyName + ".");
+                }
+                Console.WriteLine("----- Get Customer Details Tested... -----");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+        private static void GetRentalDetailsTest(RentalManager rentalManager)
+        {
+            var result = rentalManager.GetRentalDetails();
+            if (result.Success)
+            {
+                Separator();
+                Console.WriteLine("Rental Details List:");
+                foreach (var rental in result.Data)
+                {
+                    Console.WriteLine("Car Id: " + rental.CarId + ", Model year: " + rental.ModelYear
+                        + ", Car brand: " + rental.BrandName + ", Renk : " + rental.ColorName + ", Car name: "
+                        + rental.CarName + ", Fiyat: " + rental.DailyPrice + ", \n" + "Firs name: "
+                        + rental.CustomerFirstName + ", Last name: " + rental.CustomerLastName + ", Email: "
+                        + rental.Email + ", Company name: " + rental.CompanyName + ", \n" + "Rent date: "
+                        + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate));
+                }
+                Console.WriteLine("----- Get Rental Details Tested... -----");
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
 
-        private static void separator()
+        private static void Separator()
         {
             Console.WriteLine("--------------------------------------------------");
         }

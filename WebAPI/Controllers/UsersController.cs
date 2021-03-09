@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("checkuser")]
-        public IActionResult GetUserDetails(string email, string password)
+        public IActionResult CheckUser(string email, string password)
         {
             var result = _UserService.CheckUser(email,password);
             if (result.Success)
@@ -40,10 +40,7 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }/*
-         ; 
-        IDataResult<User> CheckUser(string email, string password);
-         ;*/
+        }
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
