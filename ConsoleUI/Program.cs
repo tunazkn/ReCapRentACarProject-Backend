@@ -18,10 +18,10 @@ namespace ConsoleUI
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             UserManager userManager = new UserManager(new EfUserDal());
             //Car car = new Car() { CarId = 16, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araba" };
-
+            
             //Get Car Details Test
             GetCarDetailsTest(carManager);
-            
+
             //Get Customer Details test
             //GetCustomerDetailsTest(customerManager);
 
@@ -35,7 +35,7 @@ namespace ConsoleUI
             //GetAllCustomerTest(customerManager);
             //GetAllRentalTest(rentalManager);
             //GetAllUserTest(userManager);
-            
+
             //AddCarTest(carManager);
             //UpdateCarTest(carManager);
             //DeleteCarTest(carManager);
@@ -48,7 +48,7 @@ namespace ConsoleUI
             //Get Cars By Color Id And Brand Id Tests
             //GetCarsByBrandIdTest(carManager);
             //GetCarsByColorIdTest(carManager);
-            
+
             //Add, Update, Delete for Brand Tests
             //AddBrandTest(brandManager);
             //UpdateBrandTest(brandManager);
@@ -76,7 +76,7 @@ namespace ConsoleUI
 
 
             //denemeler
-            
+
             Console.ReadLine();
         }
 
