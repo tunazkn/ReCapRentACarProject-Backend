@@ -22,6 +22,7 @@ namespace ConsoleUI
             //Get Car Details Test
             GetCarDetailsTest(carManager);
 
+
             //Get Customer Details test
             //GetCustomerDetailsTest(customerManager);
 

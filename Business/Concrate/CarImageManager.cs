@@ -21,7 +21,6 @@ namespace Business.Concrate
         {
             _carImageDal = carImageDal;
         }
-
         public IResult Add(IFormFile file, CarImage carImage)
         {
             var result = BusinessRules.Run(CheckMaxFiveImageLimitExceeded(carImage.CarId));

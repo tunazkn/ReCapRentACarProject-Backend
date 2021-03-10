@@ -18,5 +18,4 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.DailyPrice).GreaterThan(0);
         }
     }
-
 }

@@ -16,6 +16,7 @@ namespace Core.Utilities.Business
                     return logic;
                 }
             }
+
             return null;
         }
     }
