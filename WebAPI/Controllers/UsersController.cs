@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,17 +14,17 @@ namespace WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserService _UserService;
+        IUserService _userService;
 
-        public UsersController(IUserService UserService)
+        public UsersController(IUserService userService)
         {
-            _UserService = UserService;
+            _userService = userService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _UserService.GetAllUser();
+            var result = _userService.GetAllUser();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,21 +32,21 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("checkuser")]
+        /*[HttpGet("checkuser")]
         public IActionResult CheckUser(string email, string password)
         {
-            var result = _UserService.CheckUser(email,password);
+            var result = _userService.GetClaims (email,password);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-        }
+        }*/
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _UserService.GetUserById(id);
+            var result = _userService.GetUserById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(User user)
         {
-            var result = _UserService.Add(user);
+            var result = _userService.Add(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -67,7 +68,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update(User user)
         {
-            var result = _UserService.Update(user);
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -78,7 +79,7 @@ namespace WebAPI.Controllers
         [HttpPost("delete")]
         public IActionResult Delete(User user)
         {
-            var result = _UserService.Delete(user);
+            var result = _userService.Delete(user);
             if (result.Success)
             {
                 return Ok(result);

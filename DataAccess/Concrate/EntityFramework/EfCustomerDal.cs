@@ -25,7 +25,6 @@ namespace DataAccess.Concrate.EntityFramework
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  Email = u.Email,
-                                 Password = u.Password,
                                  CompanyName = cus.CompanyName
                              };
                 return result.ToList();

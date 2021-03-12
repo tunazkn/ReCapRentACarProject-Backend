@@ -1,4 +1,5 @@
 ﻿using Business.Concrate;
+using Core.Entities.Concrete;
 using DataAccess.Concrate.EntityFramework;
 using DataAccess.Concrate.InMemory;
 using Entities.Concrete;
@@ -95,8 +96,7 @@ namespace ConsoleUI
                 Id = 2,
                 FirstName = "Durmuş",
                 LastName = "Yıldız",
-                Email = "durmus@yildiz.com",
-                Password = "54321"
+                Email = "durmus@yildiz.com"
             });
             Console.WriteLine("----- User Updated... -----");
         }
@@ -108,8 +108,7 @@ namespace ConsoleUI
                 Id = 2,
                 FirstName = "Duran",
                 LastName = "Yıldız",
-                Email = "duran@yildiz.com",
-                Password = "12345"
+                Email = "duran@yildiz.com"
             });
             Console.WriteLine("----- User Added... -----");
         }
@@ -160,7 +159,7 @@ namespace ConsoleUI
                 foreach (var user in result.Data)
                 {
                     Console.WriteLine("User first name: " + user.FirstName + ", User last name: "
-                        + user.LastName + ", User email: " + user.Email + ", User password: " + user.Password);
+                        + user.LastName + ", User email: " + user.Email + ", User password: " + user.PasswordHash);
                     Console.WriteLine("-----Get All User Tested... -----");
                 }
             }
