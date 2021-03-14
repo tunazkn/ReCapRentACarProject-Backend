@@ -1,5 +1,8 @@
 using Business.Abstract;
 using Business.Concrate;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
@@ -34,6 +37,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             //services.AddSingleton<ICarService, CarManager>();
             //services.AddSingleton<ICarDal, EfCarDal>();
             //services.AddSingleton<IBrandService, BrandManager>();
@@ -46,6 +50,7 @@ namespace WebAPI
             //services.AddSingleton<IUserDal, EfUserDal>();
             //services.AddSingleton<IRentalService, RentalManager>();
             //services.AddSingleton<IRentalDal, EfRentalDal>();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -62,6 +67,10 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
+
+            services.AddDependencyResolvers(new ICoreModule[] {
+               new CoreModule()
+            });//farklý modüller oluþturursak , new diye birsürü modül oluþturup buraya ekleyebiliriz.
             //burasý
         }
 
