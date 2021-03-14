@@ -25,7 +25,9 @@ namespace Core.Aspects.Autofac.Exception
         protected override void OnException(IInvocation invocation, System.Exception e)
         {
             LogDetailWithException logDetailWithException = GetLogDetail(invocation);
+
             logDetailWithException.ExceptionMessage = e.Message;
+
             _loggerServiceBase.Error(logDetailWithException);
         }
 

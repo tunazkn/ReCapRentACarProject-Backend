@@ -4,6 +4,7 @@
     {
         public FileLogger() : base("JsonFileLogger")
         {
+            //
         }
     }
 }

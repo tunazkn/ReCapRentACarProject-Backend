@@ -32,6 +32,7 @@ namespace Core.Aspects.Autofac.Logging
         private LogDetail GetLogDetail(IInvocation invocation)
         {
             var logParameters = new List<LogParameter>();
+
             for (int i = 0; i < invocation.Arguments.Length; i++)
             {
                 logParameters.Add(new LogParameter
@@ -47,6 +48,7 @@ namespace Core.Aspects.Autofac.Logging
                 MethodName = invocation.Method.Name,
                 LogParameters = logParameters
             };
+
 
             return logDetail;
         }

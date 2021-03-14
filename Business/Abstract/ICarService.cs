@@ -19,6 +19,7 @@ namespace Business.Abstract
         IResult Delete(Car car);
 
         IResult AddTransactionalTest(Car car);
+
         IResult TransactionalOperation(Car car);
     }
 }

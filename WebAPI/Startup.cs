@@ -51,6 +51,7 @@ namespace WebAPI
             //services.AddSingleton<IRentalService, RentalManager>();
             //services.AddSingleton<IRentalDal, EfRentalDal>();
 
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -68,9 +69,11 @@ namespace WebAPI
                     };
                 });
 
+
             services.AddDependencyResolvers(new ICoreModule[] {
                new CoreModule()
-            });//farklý modüller oluþturursak , new diye birsürü modül oluþturup buraya ekleyebiliriz.
+            });
+            //farklý modüller oluþturursak , new diye birsürü modül oluþturup buraya ekleyebiliriz.
             //burasý
         }
 

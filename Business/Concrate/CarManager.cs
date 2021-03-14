@@ -32,6 +32,7 @@ namespace Business.Concrate
 
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
@@ -46,6 +47,7 @@ namespace Business.Concrate
         }
 
         [CacheAspect] //key,value
+
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAllCar()
         {

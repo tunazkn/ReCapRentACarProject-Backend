@@ -49,6 +49,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", 
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var cacheEntriesCollection = cacheEntriesCollectionDefinition.GetValue(_memoryCache) as dynamic;
+
             List<ICacheEntry> cacheCollectionValues = new List<ICacheEntry>();
 
             foreach (var cacheItem in cacheEntriesCollection)
@@ -58,6 +59,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             }
 
             var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
             var keysToRemove = cacheCollectionValues.Where(d => regex.IsMatch(d.Key.ToString())).Select(d => d.Key).ToList();
 
             foreach (var key in keysToRemove)

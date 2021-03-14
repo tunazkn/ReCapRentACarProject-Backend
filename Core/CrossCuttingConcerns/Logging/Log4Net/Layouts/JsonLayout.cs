@@ -18,7 +18,9 @@ namespace Core.CrossCuttingConcerns.Logging.Log4Net.Layouts
         public override void Format(TextWriter writer, LoggingEvent loggingEvent)
         {
             var logEvent = new SerializableLogEvent(loggingEvent);
+
             var json = JsonConvert.SerializeObject(logEvent, Formatting.Indented);
+
             writer.WriteLine(json);
         }
     }
