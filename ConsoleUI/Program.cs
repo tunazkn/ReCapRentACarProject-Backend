@@ -179,7 +179,7 @@ namespace ConsoleUI
                 {
 
                     Console.WriteLine("Car id: " + rental.CarId + ", " + ", Customer id: " + rental.CustomerId
-                        + ", Rent date: " + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate));
+                        + ", Rent date: " + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate.ToString()));
                     Console.WriteLine("-----Get All Rental Tested... -----");
                 }
             }
@@ -188,7 +188,7 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
-        private static string ReturnDateFix(DateTime? ReturnDate)
+        private static string ReturnDateFix(string ReturnDate)
         {
             string dateToReturn;
 
@@ -456,7 +456,7 @@ namespace ConsoleUI
                         + rental.CarName + ", Fiyat: " + rental.DailyPrice + ", \n" + "Firs name: "
                         + rental.CustomerFirstName + ", Last name: " + rental.CustomerLastName + ", Email: "
                         + rental.Email + ", Company name: " + rental.CompanyName + ", \n" + "Rent date: "
-                        + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate));
+                        + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate.ToString()));
                 }
                 Console.WriteLine("----- Get Rental Details Tested... -----");
             }

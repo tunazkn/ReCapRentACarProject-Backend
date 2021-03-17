@@ -33,12 +33,11 @@ namespace DataAccess.Concrate.EntityFramework
                                  ColorName = color.ColorName,
                                  DailyPrice = car.DailyPrice,
                                  ModelYear = car.ModelYear,
-                                 CustomerFirstName = user.FirstName,
-                                 CustomerLastName = user.LastName,
+                                 CustomerName = user.FirstName +" "+ user.LastName,
                                  Email = user.Email,
                                  CompanyName = customer.CompanyName,
-                                 RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate,
+                                 RentDate = r.RentDate.ToShortDateString(),
+                                 ReturnDate = r.ReturnDate.ToString()
 
                              };
                 return result.ToList();

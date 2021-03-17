@@ -41,7 +41,7 @@ namespace Business.Concrate
             {
                 return new ErrorDataResult<List<Customer>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
         public IDataResult<Customer> GetCustomerById(int customerId)
@@ -56,7 +56,7 @@ namespace Business.Concrate
             {
                 return new ErrorDataResult<List<CustomerDetailDto>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails(), Messages.CustomerDetailsListed);
         }
         public IResult Update(Customer customer)
         {
