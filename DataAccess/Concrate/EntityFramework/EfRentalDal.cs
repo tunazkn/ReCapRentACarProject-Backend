@@ -28,11 +28,12 @@ namespace DataAccess.Concrate.EntityFramework
                              {
                                  Id = r.Id,
                                  CarId = car.CarId,
-                                 CarName = car.Description,
+                                 CarName = car.CarName,
                                  BrandName = brand.BrandName,
                                  ColorName = color.ColorName,
                                  DailyPrice = car.DailyPrice,
                                  ModelYear = car.ModelYear,
+                                 Description = car.Description,
                                  CustomerName = user.FirstName +" "+ user.LastName,
                                  Email = user.Email,
                                  CompanyName = customer.CompanyName,

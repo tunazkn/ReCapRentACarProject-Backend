@@ -18,8 +18,8 @@ namespace ConsoleUI
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             UserManager userManager = new UserManager(new EfUserDal());
-            //Car car = new Car() { CarId = 16, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araba" };
-            
+            //Car car = new Car() { CarId = 16, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araba", CarName = "Örnek araba ismi" };
+
             //Get Car Details Test
             GetCarDetailsTest(carManager);
 
@@ -229,7 +229,8 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Car id: " + car.CarId + "\n" + "Car brand id: " + car.BrandId + "\n"
                         + "Car color id: " + car.ColorId + "\n" + "Car model year: " + car.ModelYear + "\n"
-                        + "Car name: " + car.Description + "\n" + "Car daily price: " + car.DailyPrice + " TL...");
+                        + "Car name: " + car.CarName + "\n" + "Car daily price: " + car.DailyPrice + " TL. "
+                        + "Açıklama: " + car.Description);
                 }
                 Console.WriteLine("----- Get Cars By Color Id Details Tested... -----");
             }
@@ -250,7 +251,8 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Car id: " + car.CarId + "\n" + "Car brand id: " + car.BrandId + "\n"
                         + "Car color id: " + car.ColorId + "\n" + "Car model year: " + car.ModelYear + "\n"
-                        + "Car name: " + car.Description + "\n" + "Car daily price: " + car.DailyPrice + " TL ...");
+                        + "Car name: " + car.CarName + "\n" + "Car daily price: " + car.DailyPrice + " TL. "
+                        + "Açıklama: " + car.Description);
                 }
                 Console.WriteLine("----- Get Cars By Brand Id Details Tested... -----");
             }
@@ -323,7 +325,8 @@ namespace ConsoleUI
                 Console.WriteLine("Car By Id List:");
                 Console.WriteLine("Car id: " + result.Data.CarId + "\n" + "Car brand id: " + result.Data.BrandId + "\n"
                     + "Car color id: " + result.Data.ColorId + "\n" + "Car model year: " + result.Data.ModelYear + "\n"
-                    + "Car name: " + result.Data.Description + "\n" + "Car daily price: " + result.Data.DailyPrice + " TL...");
+                    + "Car name: " + result.Data.CarName + "\n" + "Car daily price: " + result.Data.DailyPrice + " TL. "
+                    + "Açıklama: " + result.Data.Description);
                 Console.WriteLine("----- Get Car By Id Tested... -----");
             }
             else
@@ -334,19 +337,19 @@ namespace ConsoleUI
 
         private static void AddCarTest(CarManager carManager)
         {
-            carManager.Add(new Car() { CarId = 14, BrandId = 1, ColorId = 1, DailyPrice = 111111, ModelYear = 2000, Description = "araba" });
+            carManager.Add(new Car() { CarId = 14, BrandId = 1, ColorId = 1, DailyPrice = 111111, ModelYear = 2000, Description = "araba", CarName = "Corsa" });
             Console.WriteLine("----- Car Added... -----");
         }
 
         private static void UpdateCarTest(CarManager carManager)
         {
-            carManager.Update(new Car() { CarId = 13, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araç" });
+            carManager.Update(new Car() { CarId = 13, BrandId = 5, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araç", CarName = "Symbol" });
             Console.WriteLine("----- Car Updated... -----");
         }
 
         private static void DeleteCarTest(CarManager carManager)
         {
-            carManager.Delete(new Car() { CarId = 12, BrandId = 1, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araç" });
+            carManager.Delete(new Car() { CarId = 12, BrandId = 5, ColorId = 1, DailyPrice = 222222, ModelYear = 2000, Description = "araç", CarName = "Megane" });
             Console.WriteLine("----- Car Deleted... -----");
         }
 
@@ -359,7 +362,7 @@ namespace ConsoleUI
                 Console.WriteLine("Car List:");
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.Description);
+                    Console.WriteLine(car.CarName);
                     Console.WriteLine("-----Get All Car Tested... -----");
                 }
             }
@@ -413,7 +416,7 @@ namespace ConsoleUI
                 foreach (var car in result.Data)
                 {
                     Console.WriteLine(car.ColorName + " renk " + car.ModelYear + " Model " + car.BrandName + " "
-                        + car.Description + ", fiyatı: " + car.DailyPrice + " TL/Gün");
+                        + car.CarName + ", fiyatı: " + car.DailyPrice + " TL/Gün" + "Açıklama: " + car.Description);
                 }
                 Console.WriteLine("----- Get Car Details Tested... -----");
             }
@@ -453,8 +456,8 @@ namespace ConsoleUI
                 {
                     Console.WriteLine("Car Id: " + rental.CarId + ", Model year: " + rental.ModelYear
                         + ", Car brand: " + rental.BrandName + ", Renk : " + rental.ColorName + ", Car name: "
-                        + rental.CarName + ", Fiyat: " + rental.DailyPrice + ", \n" + "Firs name: "
-                        + rental.CustomerFirstName + ", Last name: " + rental.CustomerLastName + ", Email: "
+                        + rental.CarName + ", Fiyat: " + rental.DailyPrice + ", \n" + "Customer name: "
+                        + rental.CustomerName + ", Email: "
                         + rental.Email + ", Company name: " + rental.CompanyName + ", \n" + "Rent date: "
                         + rental.RentDate + ", Return date: " + ReturnDateFix(rental.ReturnDate.ToString()));
                 }
