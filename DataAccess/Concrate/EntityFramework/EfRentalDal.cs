@@ -39,7 +39,6 @@ namespace DataAccess.Concrate.EntityFramework
                                  CompanyName = customer.CompanyName,
                                  RentDate = r.RentDate.ToShortDateString(),
                                  ReturnDate = r.ReturnDate.ToString()
-
                              };
                 return result.ToList();
             }

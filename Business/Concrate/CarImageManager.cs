@@ -46,9 +46,9 @@ namespace Business.Concrate
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
-        public IDataResult<CarImage> GetByImageId(int imageId)
+        public IDataResult<List<CarImage>> GetByImageId(int imageId)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(i => i.Id == imageId));
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(i => i.Id == imageId));
         }
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
