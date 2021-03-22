@@ -1,11 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +16,7 @@ namespace WebAPI.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
         public IActionResult GetAll()
         {
             var result = _customerService.GetAllCustomer();
@@ -30,18 +26,8 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getdetails")]
-        public IActionResult GetCustomerDetails()
-        {
-            var result = _customerService.GetCustomerDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
 
-        [HttpGet("getbyid")]
+        [HttpGet("id")]
         public IActionResult GetById(int id)
         {
             var result = _customerService.GetCustomerById(id);
@@ -51,7 +37,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        
         [HttpPost("add")]
         public IActionResult Add(Customer customer)
         {
@@ -78,6 +64,16 @@ namespace WebAPI.Controllers
         public IActionResult Delete(Customer customer)
         {
             var result = _customerService.Delete(customer);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getdetails")]
+        public IActionResult GetCustomerDetails()
+        {
+            var result = _customerService.GetCustomerDetails();
             if (result.Success)
             {
                 return Ok(result);

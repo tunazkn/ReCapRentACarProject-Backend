@@ -8,16 +8,11 @@ using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
-using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrate.InMemory;
 using Entities.Concrete;
-using Entities.DTOs;
-using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Entities.DTOs;using System;using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Business.Concrate
 {
@@ -30,23 +25,140 @@ namespace Business.Concrate
             _carDal = carDal;
         }
 
-        [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
-
         [CacheRemoveAspect("ICarService.Get")]
+        [SecuredOperation("Car.Add")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
-        }
 
+        }
+        [SecuredOperation("Car.Delete")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.CarDeleted);
         }
 
-        [CacheAspect] //key,value
+        [CacheAspect]
+        public IDataResult<List<Car>> GetAll()
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
+        }
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<Car> GetById(int carId)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<Car>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == carId));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandAndColor(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByBrandAndColor(brandId, colorId));
+        }
+        public IDataResult<List<CarDetailDto>> GetCarDetailsById(int carId)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailById(carId));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarBrandandColor(int brandId, int colorId)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == brandId && p.ColorId == colorId));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarsDetailByBrandId(int brandId)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == brandId));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarsDetailByColorId(int colorId)
+        {
+            if (DateTime.Now.Hour == 5)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.ColorId == colorId));
+        }
+
+
+        [SecuredOperation("Car.Update")]
+        public IResult Update(Car car)
+        {
+            if (car.DailyPrice > 0)
+            {
+                _carDal.Update(car);
+                return new SuccessResult(Messages.CarUpdated);
+            }
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarPriceInvalid);
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+
+            Add(car);
+            if (car.DailyPrice < 10)
+            {
+                throw new Exception("");
+            }
+
+            Add(car);
+
+            return null;
+        }
+
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Car car)
+        {
+            _carDal.Update(car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarUpdated);
+        }
+    }
+}
+
+/*
+
+
+
+[CacheAspect] //key,value
 
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAllCar()
@@ -101,28 +213,6 @@ namespace Business.Concrate
             return new SuccessResult(Messages.CarUpdated); 
         }
 
-        [TransactionScopeAspect]
-        public IResult AddTransactionalTest(Car car)
-        {
-
-            Add(car);
-            if (car.DailyPrice < 10)
-            {
-                throw new Exception("");
-            }
-
-            Add(car);
-
-            return null;
-        }
-
-        [TransactionScopeAspect]
-        public IResult TransactionalOperation(Car car)
-        {
-            _carDal.Update(car);
-            _carDal.Add(car);
-            return new SuccessResult(Messages.CarUpdated);
-        }
 
 
         IDataResult<CarDetailDto> ICarService.GetCarById(int carId)
@@ -130,4 +220,4 @@ namespace Business.Concrate
             throw new NotImplementedException();
         }
     }
-}
+}*/

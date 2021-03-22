@@ -1,11 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +16,7 @@ namespace WebAPI.Controllers
             _ColorService = ColorService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet]
         public IActionResult GetAll()
         {
             var result = _ColorService.GetAllColor();
@@ -31,7 +27,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
 
         }
-        [HttpGet("getbyid")]
+        [HttpGet("id")]
         public IActionResult GetById(int id)
         {
             var result = _ColorService.GetColorById(id);

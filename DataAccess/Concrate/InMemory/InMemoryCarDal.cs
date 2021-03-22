@@ -70,5 +70,20 @@ namespace DataAccess.Concrate.InMemory
         {
             throw new NotImplementedException();
         }
+
+        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCarDetailById(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarDetailDto> GetCarDetailsByBrandAndColor(int brandId, int colorId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

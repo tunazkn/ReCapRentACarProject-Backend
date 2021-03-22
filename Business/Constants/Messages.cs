@@ -9,12 +9,16 @@ namespace Business.Constants
 {
     public static class Messages
     {
+        public static string[] ValidImageFileTypes = { ".JPG", ".JPEG", ".PNG", ".TIF", ".TIFF", ".GIF", ".BMP", ".ICO" };
+
         public static string CarsListed = "Arabalar listelendi";
         public static string CarAdded = "Araba eklendi";
         public static string CarUpdated = "Araba güncellendi";
         public static string CarDeleted = "Araba silindi";
         public static string CarNameInvalid = "Araba ismi geçersiz";
         public static string MaintenanceTime = "Sistem bakımda";
+        public static string CarPriceInvalid = "Araç günlük fiyatı için girdiğiniz değer 0 dan büyük olmalıdır.";
+        public static string notReturned = "Araç henüz teslim edilmemiş";
 
         public static string BrandsListed = "Markalar listelendi";
         public static string BrandAdded = "Marka eklendi";
@@ -49,8 +53,14 @@ namespace Business.Constants
 
 
         public static string CarImageLimitExceed = "Arabaya ait 5 adet resim mevcut, bir araç için en fazla 5 resim ekleyebilirsiniz.";
-
         public static string CarImageLimitExceeded = "Bir araba için en fazla 5 resim eklenebilir.";
+        public static string CarImageAdded = "Araba resmi eklendi";
+        public static string DeletedCarImage = "Araba resmi silindi";
+        public static string CarImageUpdated = "Araç resmi güncellendi";
+        public static string CarImageNotFound = "Resim bulunamadı";
+        public static string InvalidImageExtension = "Geçersiz dosya uzantısı, resim için kabul edilen uzantılar" + string.Join(",", ValidImageFileTypes);
+        public static string CarHaveNoImage="Araca ait resim bulunamadı";
+
         public static string AuthorizationDenied = "Yetkiniz yok";
         public static string UserRegistered = "Kayıt oldu";
         public static string UserNotFound = "Kullanıcı bulunamadı";

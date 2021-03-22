@@ -45,15 +45,15 @@ namespace Business.Concrate
 
         public IDataResult<Brand> GetBrandById(int brandId)
         {
+            if (DateTime.Now.Hour == 00)
+            {
+                return new ErrorDataResult<Brand>(Messages.MaintenanceTime);
+            }
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
         }
 
         public IResult Update(Brand brand)
         {
-            if (brand.BrandName.Length < 2)
-            {
-                return new ErrorResult(Messages.BrandNameInvalid);
-            }
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }

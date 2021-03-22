@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +15,17 @@ namespace WebAPI.Controllers
             _brandService = brandService;
         }
 
-        [HttpGet("getall")]
+        [HttpGet("id")]
+        public IActionResult GetById(int id)
+        {
+            var result = _brandService.GetBrandById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet]
         public IActionResult GetAll()
         {
             var result = _brandService.GetAllBrand();
@@ -32,16 +37,7 @@ namespace WebAPI.Controllers
 
         }
 
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
-        {
-            var result = _brandService.GetBrandById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+        
         [HttpPost("add")]
         public IActionResult Add(Brand brand)
         {

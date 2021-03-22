@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -7,6 +11,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace Business.Concrate
 {
@@ -19,30 +24,23 @@ namespace Business.Concrate
             _userDal = userDal;
         }
 
-        public List<OperationClaim> GetClaims(User user)
-        {
-            return _userDal.GetClaims(user);
-        }
-
-        public User GetByMail(string email)
-        {
-            return _userDal.Get(u => u.Email == email);
-        }
-
+        //[ValidationAspect(typeof(UserValidator))]
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
 
-
+        [SecuredOperation("User.Delete")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
-        
-        public IDataResult<List<User>> GetAllUser()
+
+        [CacheAspect]
+        public IDataResult<List<User>> GetAll()
         {
             if (DateTime.Now.Hour == 22)
             {
@@ -51,7 +49,9 @@ namespace Business.Concrate
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UsersListed);
         }
 
-        public IDataResult<User> GetUserById(int userId)
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<User> GetById(int userId)
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
         }
@@ -64,6 +64,19 @@ namespace Business.Concrate
             }
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
+        }
+
+        [CacheAspect]
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
+        [CacheAspect]
+        [PerformanceAspect(5)]
+        public IDataResult<User> GetByMail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
         }
     }
 }
