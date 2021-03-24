@@ -117,7 +117,7 @@ namespace Business.Concrate
         }
 
 
-        [SecuredOperation("Car.Update")]
+        //[SecuredOperation("Car.Update")]
         public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)

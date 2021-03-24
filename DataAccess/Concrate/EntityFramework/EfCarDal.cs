@@ -47,12 +47,15 @@ namespace DataAccess.Concrate.EntityFramework
                              where p.CarId == carId
                              select new CarDetailDto
                              {
+                                 CarId = p.CarId,
+                                 CarName = p.CarName,
+                                 BrandId = p.BrandId,
                                  BrandName = d.BrandName,
+                                 ColorId = p.ColorId,
                                  ColorName = c.ColorName,
                                  DailyPrice = p.DailyPrice,
                                  Description = p.Description,
                                  ModelYear = p.ModelYear,
-                                 CarId = p.CarId,
                                  Date = im.Date,
                                  ImagePath = im.ImagePath,
                                  ImageId = im.Id
