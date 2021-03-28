@@ -25,7 +25,6 @@ namespace DataAccess.Concrate.EntityFramework
                     join user in context.Users on cu.UserId equals user.Id
                     select new RentalDetailDto
                     {
-                        Id = r.Id,
                         CarName = c.CarName,
 
                         CarId = c.CarId,
@@ -57,7 +56,7 @@ namespace DataAccess.Concrate.EntityFramework
 
                              select new RentalDetailDto
                              {
-                                 Id = r.Id,
+                                 Id=r.Id,
                                  CarId = car.CarId,
                                  CarName = car.CarName,
                                  BrandName = brand.BrandName,

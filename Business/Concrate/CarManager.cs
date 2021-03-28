@@ -128,7 +128,7 @@ namespace Business.Concrate
             _carDal.Update(car);
             return new SuccessResult(Messages.CarPriceInvalid);
         }
-
+        /*
         [TransactionScopeAspect]
         public IResult AddTransactionalTest(Car car)
         {
@@ -142,15 +142,15 @@ namespace Business.Concrate
             Add(car);
 
             return null;
-        }
-
+        }*/
+        /*
         [TransactionScopeAspect]
         public IResult TransactionalOperation(Car car)
         {
             _carDal.Update(car);
             _carDal.Add(car);
             return new SuccessResult(Messages.CarUpdated);
-        }
+        }*/
     }
 }
 
