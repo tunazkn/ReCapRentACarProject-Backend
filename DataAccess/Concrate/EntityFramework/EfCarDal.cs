@@ -90,35 +90,3 @@ namespace DataAccess.Concrate.EntityFramework
     }
 }
 
-
-/*
-public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
-{
-    using (RentACarContext context = new RentACarContext())
-    {
-        var result = from car in context.Cars
-                     join b in context.Brands on car.BrandId equals b.BrandId
-                     join c in context.Colors on car.ColorId equals c.ColorId
-                     //join image in context.CarImages on car.CarId equals image.CarId
-                     select new CarDetailDto
-                     {
-                         CarId = car.CarId,
-                         CarName = car.CarName,
-                         BrandId=car.BrandId,
-                         BrandName = b.BrandName,
-                         ColorId = car.ColorId,
-                         ColorName = c.ColorName,
-                         DailyPrice = car.DailyPrice,
-                         ModelYear = car.ModelYear,
-                         Description = car.Description,
-                         //CarImageDate= image.Date,
-                         //ImagePath = image.ImagePath
-                     };
-        return filter == null
-            ? result.ToList()
-            : result.Where(filter).ToList();
-    }
-}
-}
-}
-*/

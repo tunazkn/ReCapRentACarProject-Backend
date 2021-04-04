@@ -108,21 +108,3 @@ namespace Business.Concrate
         }
     }
 }
-/*
-public IDataResult<List<RentalDetailDto>> GetRentalDetails()
-        {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<RentalDetailDto>>(Messages.MaintenanceTime);
-            }
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
-        }
-
-        public IResult Update(Rental rental)
-        {
-            _rentalDal.Update(rental);
-            return new SuccessResult(Messages.RentalUpdated);
-        }
-    }
-}
-*/

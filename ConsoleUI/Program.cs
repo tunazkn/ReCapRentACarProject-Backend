@@ -474,12 +474,5 @@ namespace ConsoleUI
         //    Console.WriteLine("--------------------------------------------------");
         //}
 
-        /*8. gün
-         *  Ödev 1
-    6) Sisteme yeni araba eklendiğinde aşağıdaki kuralları çalıştırınız.
-    Araba ismi minimum 2 karakter olmalıdır
-    Araba günlük fiyatı 0'dan büyük olmalıdır.
-    Ödevinize ait github linkini paylaşınız.
-         */
     }
 }
