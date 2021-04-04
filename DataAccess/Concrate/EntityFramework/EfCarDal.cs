@@ -15,24 +15,25 @@ namespace DataAccess.Concrate.EntityFramework
         {
             using (RentACarContext context = new RentACarContext())
             {
-                var result = (from p in filter == null ? context.Cars : context.Cars.Where(filter)
-                              join c in context.Colors on p.ColorId equals c.ColorId
-                              join d in context.Brands on p.BrandId equals d.BrandId
-                              join im in context.CarImages on p.CarId equals im.CarId
+                var result = (from car in filter == null ? context.Cars : context.Cars.Where(filter)
+                              join c in context.Colors on car.ColorId equals c.ColorId
+                              join d in context.Brands on car.BrandId equals d.BrandId
+                              join im in context.CarImages on car.CarId equals im.CarId
                               select new CarDetailDto
                               {
-                                  CarId = p.CarId,
-                                  CarName = p.CarName,
+                                  CarId = car.CarId,
+                                  CarName = car.CarName,
                                   BrandName = d.BrandName,
                                   ColorName = c.ColorName,
-                                  DailyPrice = p.DailyPrice,
-                                  Description = p.Description,
-                                  ModelYear = p.ModelYear,
+                                  DailyPrice = car.DailyPrice,
+                                  Description = car.Description,
+                                  ModelYear = car.ModelYear,
                                   Date = im.Date,
                                   ImagePath = im.ImagePath,
-                                  ImageId = im.Id
+                                  ImageId = im.Id,
+                                  MinFindeksScore = car.MinFindeksScore
                               }).ToList();
-                return result.GroupBy(p => p.CarId).Select(p => p.FirstOrDefault()).ToList();
+                return result.GroupBy(car => car.CarId).Select(car => car.FirstOrDefault()).ToList();
             }
         }
 
@@ -40,25 +41,26 @@ namespace DataAccess.Concrate.EntityFramework
         {
             using (RentACarContext context = new RentACarContext())
             {
-                var result = from p in context.Cars
-                             join c in context.Colors on p.ColorId equals c.ColorId
-                             join d in context.Brands on p.BrandId equals d.BrandId
-                             join im in context.CarImages on p.CarId equals im.CarId
-                             where p.CarId == carId
+                var result = from car in context.Cars
+                             join c in context.Colors on car.ColorId equals c.ColorId
+                             join d in context.Brands on car.BrandId equals d.BrandId
+                             join im in context.CarImages on car.CarId equals im.CarId
+                             where car.CarId == carId
                              select new CarDetailDto
                              {
-                                 CarId = p.CarId,
-                                 CarName = p.CarName,
-                                 BrandId = p.BrandId,
+                                 CarId = car.CarId,
+                                 CarName = car.CarName,
+                                 BrandId = car.BrandId,
                                  BrandName = d.BrandName,
-                                 ColorId = p.ColorId,
+                                 ColorId = car.ColorId,
                                  ColorName = c.ColorName,
-                                 DailyPrice = p.DailyPrice,
-                                 Description = p.Description,
-                                 ModelYear = p.ModelYear,
+                                 DailyPrice = car.DailyPrice,
+                                 Description = car.Description,
+                                 ModelYear = car.ModelYear,
                                  Date = im.Date,
                                  ImagePath = im.ImagePath,
-                                 ImageId = im.Id
+                                 ImageId = im.Id,
+                                 MinFindeksScore = car.MinFindeksScore
                              };
                 return result.ToList();
             }
@@ -80,6 +82,7 @@ namespace DataAccess.Concrate.EntityFramework
                                  ColorName = color.ColorName,
                                  DailyPrice = car.DailyPrice,
                                  ModelYear = car.ModelYear,
+                                 MinFindeksScore = car.MinFindeksScore,
                                  ImagePath = (from carImage in context.CarImages
                                               where (carImage.CarId == car.CarId)
                                               select carImage).FirstOrDefault().ImagePath

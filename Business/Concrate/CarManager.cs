@@ -30,6 +30,10 @@ namespace Business.Concrate
         [SecuredOperation("Car.Add")]
         public IResult Add(Car car)
         {
+            if (car.MinFindeksScore == 0)
+            {
+                car.MinFindeksScore = (new Random().Next(1, 190)) * 10;
+            }
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
 
