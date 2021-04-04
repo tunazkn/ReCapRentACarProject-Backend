@@ -9,7 +9,7 @@ namespace Business.Constants
 {
     public static class Messages
     {
-        public static string[] ValidImageFileTypes = { ".JPG", ".JPEG", ".PNG", ".TIF", ".TIFF", ".GIF", ".BMP", ".ICO" };
+        public static string[] ValidImageFileTypes = { ".JPG", ".JPEG", ".PNG", ".ICO" };
 
         public static string CarsListed = "Arabalar listelendi";
         public static string CarAdded = "Araba eklendi";

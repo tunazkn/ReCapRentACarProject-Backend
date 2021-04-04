@@ -38,7 +38,7 @@ namespace Business.Concrate
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email).Data;
+            var userToCheck = _userService.GetByEmail(userForLoginDto.Email).Data;
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
@@ -54,7 +54,8 @@ namespace Business.Concrate
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            var result = _userService.GetByEmail(email).Data;
+            if ( result != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
